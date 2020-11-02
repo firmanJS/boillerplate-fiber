@@ -12,6 +12,7 @@ func EmployeRoutes(api fiber.Router) {
 	route.Get("/", employe.GetAll)
 	route.Post("/", employe.CreateNew)
 	route.Delete("/:id", employe.DeleteSingle)
+	route.Delete("/", employe.DeleteAll)
 	route.Get("/:id", employe.GetSingle)
 	route.Put("/:id", employe.UpdateSingle)
 

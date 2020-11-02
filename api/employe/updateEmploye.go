@@ -14,7 +14,6 @@ func UpdateSingle(ctx *fiber.Ctx) error {
 	// check data
 	id := ctx.Params("id")
 	employe := new(Employe)
-
 	employeId, parseError := primitive.ObjectIDFromHex(id)
 	if parseError != nil {
 		return helpers.BadResponse(ctx, "Bad Request", parseError.Error())
@@ -40,7 +39,7 @@ func UpdateSingle(ctx *fiber.Ctx) error {
 				{Key: "name", Value: employe.Name},
 				{Key: "salary", Value: employe.Salary},
 				{Key: "age", Value: employe.Age},
-				{Key: "time", Value: time.Now()},
+				{Key: "updatedAt", Value: time.Now()},
 			},
 		},
 	}

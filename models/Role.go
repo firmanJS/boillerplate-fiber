@@ -9,11 +9,9 @@ import (
 // omitempty ketika post json kosong tidak terinsert ke document
 // jika menggunkana emitpty nanti data akan duplikat juga pas insert
 
-type Employe struct {
+type Role struct {
 	ID     primitive.ObjectID  `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name   string   `json:"name" valid:"required~Name is blank" bson:"name"`
-	Salary float64 `json:"salary" bson:"salary" valid:"required~Salary is blank"`
-	Age    int64 `json:"age" bson:"age" valid:"required"`
+	RoleName   string   `json:"roleName" valid:"required~roleName is blank" bson:"roleName"`
 	CreatedAt time.Time  `json:"createdAt" bson:"createdAt"`
 	UpdatedAt time.Time  `json:"updatedAt" bson:"updatedAt"`
 }

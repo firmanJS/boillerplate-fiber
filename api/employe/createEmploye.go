@@ -7,6 +7,7 @@ import (
 	"github.com/firmanJS/boillerplate-fiber/helpers"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
+	"github.com/asaskevich/govalidator"
 )
 
 func CreateNew(ctx *fiber.Ctx) error {
@@ -18,8 +19,14 @@ func CreateNew(ctx *fiber.Ctx) error {
 	employe.CreatedAt = utils.MakeTimestamp()
 	employe.UpdatedAt = utils.MakeTimestamp()
 
-	if errorParsing := ctx.BodyParser(employe); errorParsing != nil {
-		return helpers.ServerResponse(ctx, errorParsing.Error(), errorParsing.Error())
+	if errors := ctx.BodyParser(employe); errors != nil {
+		_, err := govalidator.ValidateStruct(employe)
+
+		if err != nil {
+			return helpers.ServerResponse(ctx, err.Error(), err)
+		}
+
+		return helpers.ServerResponse(ctx, errors.Error(), errors)
 	} else {
 		if result, errs := collection.InsertOne(ctx.Context(), employe); errs != nil {
 			return helpers.ServerResponse(ctx, errs.Error(), errs.Error())

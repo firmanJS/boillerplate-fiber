@@ -35,3 +35,13 @@ func DeleteSingle(ctx *fiber.Ctx) error {
 		return helpers.CrudResponse(ctx, "Deleted", result)
 	}
 }
+
+func DeleteAll(ctx *fiber.Ctx) error {
+	// get collection
+	collection := Instance.Database.Collection("employe")
+
+	// check if the record is there
+	deleteResult := collection.Drop(ctx.Context())
+
+	return helpers.CrudResponse(ctx, "Deleted", deleteResult)
+}
