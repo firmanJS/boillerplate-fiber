@@ -8,6 +8,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+type Role models.Role
+
 func GetAll(ctx *fiber.Ctx) error {
 	query := bson.D{{}}
 	cursor, queryError := Instance.Database.Collection("role").Find(ctx.Context(), query)
@@ -15,7 +17,7 @@ func GetAll(ctx *fiber.Ctx) error {
 		return helpers.CrudResponse(ctx, "Get", queryError)
 	}
 
-	var role []models.Role = make([]models.Role, 0)
+	var role []Role = make([]Role, 0)
 
 	// iterate the cursor and decode each item into a Todo
 	if err := cursor.All(ctx.Context(), &role); err != nil {
