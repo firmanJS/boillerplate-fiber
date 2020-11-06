@@ -11,7 +11,7 @@ import (
 
 type Role struct {
 	ID     primitive.ObjectID  `json:"_id,omitempty" bson:"_id,omitempty"`
-	RoleName   string   `json:"roleName" valid:"required~roleName is blank" bson:"roleName"`
+	RoleName   string   `json:"rolename" valid:"required~rolename is blank" bson:"rolename"`
 	CreatedAt time.Time  `json:"createdAt" bson:"createdAt"`
 	UpdatedAt time.Time  `json:"updatedAt" bson:"updatedAt"`
 }
