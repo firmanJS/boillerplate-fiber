@@ -1,0 +1,14 @@
+version: '3'
+services:
+  boillerplate-fiber:
+    image: firmanjs/boillerplate-fiber
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+        - .:/usr/src/app
+    depends_on:
+      - boillerplate-fiber
+
+volumes:
+  mongodb:

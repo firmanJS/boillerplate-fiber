@@ -1,4 +1,4 @@
-package employe
+package role
 
 import (
 	. "github.com/firmanJS/boillerplate-fiber/config"
@@ -12,16 +12,16 @@ func DeleteSingle(ctx *fiber.Ctx) error {
 	// check data
 	id := ctx.Params("id")
 
-	employeId, parseError := primitive.ObjectIDFromHex(id)
+	roleId, parseError := primitive.ObjectIDFromHex(id)
 	if parseError != nil {
 		return helpers.BadResponse(ctx, "Bad Request", parseError.Error())
 	}
 
 	// get collection
-	collection := Instance.Database.Collection("employe")
+	collection := Instance.Database.Collection("role")
 
 	// check if the record is there
-	query := bson.D{{Key: "_id", Value: employeId}}
+	query := bson.D{{Key: "_id", Value: roleId}}
 	result, deleteError := collection.DeleteOne(ctx.Context(), &query)
 
 	if deleteError != nil {
@@ -38,7 +38,7 @@ func DeleteSingle(ctx *fiber.Ctx) error {
 
 func DeleteAll(ctx *fiber.Ctx) error {
 	// get collection
-	collection := Instance.Database.Collection("employe")
+	collection := Instance.Database.Collection("role")
 
 	// check if the record is there
 	deleteResult := collection.Drop(ctx.Context())

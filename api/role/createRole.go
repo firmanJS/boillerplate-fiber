@@ -1,4 +1,4 @@
-package employe
+package role
 
 import (
 	. "github.com/firmanJS/boillerplate-fiber/config"
@@ -12,15 +12,15 @@ import (
 
 func CreateNew(ctx *fiber.Ctx) error {
 	
-	collection := Instance.Database.Collection("employe")
+	collection := Instance.Database.Collection("role")
 
 	// create a new record
-	employe := new(Employe)
-	employe.CreatedAt = utils.MakeTimestamp()
-	employe.UpdatedAt = utils.MakeTimestamp()
+	role := new(Role)
+	role.CreatedAt = utils.MakeTimestamp()
+	role.UpdatedAt = utils.MakeTimestamp()
 
-	if errors := ctx.BodyParser(employe); errors != nil {
-		_, err := govalidator.ValidateStruct(employe)
+	if errors := ctx.BodyParser(role); errors != nil {
+		_, err := govalidator.ValidateStruct(role)
 
 		if err != nil {
 			return helpers.ServerResponse(ctx, err.Error(), err)
@@ -28,15 +28,15 @@ func CreateNew(ctx *fiber.Ctx) error {
 
 		return helpers.ServerResponse(ctx, errors.Error(), errors)
 	} else {
-		if result, errs := collection.InsertOne(ctx.Context(), employe); errs != nil {
+		if result, errs := collection.InsertOne(ctx.Context(), role); errs != nil {
 			return helpers.ServerResponse(ctx, errs.Error(), errs.Error())
 		} else {
 			filter := bson.D{{Key: "_id", Value: result.InsertedID}}
 			createdRecord := collection.FindOne(ctx.Context(), filter)
-			createdemploye := &Employe{}
-			createdRecord.Decode(createdemploye)
+			createdRole := &Role{}
+			createdRecord.Decode(createdRole)
 
-			return helpers.CrudResponse(ctx, "Create", createdemploye)
+			return helpers.CrudResponse(ctx, "Create", createdRole)
 		}
 	}
 }
