@@ -11,6 +11,7 @@ import (
 func GetAll(ctx *fiber.Ctx) error {
 	query := bson.D{{}}
 	cursor, queryError := Instance.Database.Collection("employe").Find(ctx.Context(), query)
+	
 	if queryError != nil {
 		return helpers.CrudResponse(ctx, "Get", queryError)
 	}
