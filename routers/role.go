@@ -15,5 +15,5 @@ func RoleRoutes(api fiber.Router) {
 	route.Delete("/", role.DeleteAll)
 	route.Get("/:id", role.GetSingle)
 	route.Put("/:id", role.UpdateSingle)
-
+	
 }
