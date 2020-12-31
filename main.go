@@ -3,12 +3,13 @@ package main
 import (
 	"log"
 	"os"
-	"github.com/firmanJS/boillerplate-fiber/helpers"
+
 	"github.com/firmanJS/boillerplate-fiber/config"
+	"github.com/firmanJS/boillerplate-fiber/helpers"
 	"github.com/firmanJS/boillerplate-fiber/routers"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/compress"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
@@ -26,7 +27,7 @@ func main() {
 	app.Use(cors.New())
 	app.Use(compress.New())
 	app.Use(logger.New())
-	
+
 	// routers setup
 	routers.SetupRoutes(app)
 
