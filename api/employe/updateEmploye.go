@@ -2,16 +2,17 @@ package employe
 
 import (
 	"time"
+
 	. "github.com/firmanJS/boillerplate-fiber/config"
-	. "github.com/firmanJS/boillerplate-fiber/models"
 	"github.com/firmanJS/boillerplate-fiber/helpers"
+	. "github.com/firmanJS/boillerplate-fiber/models"
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func UpdateSingle(ctx *fiber.Ctx) error {
-	// check data
+
 	id := ctx.Params("id")
 	employe := new(Employe)
 	employeId, parseError := primitive.ObjectIDFromHex(id)
@@ -50,4 +51,3 @@ func UpdateSingle(ctx *fiber.Ctx) error {
 
 	return helpers.CrudResponse(ctx, "Update", result)
 }
-
