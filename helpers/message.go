@@ -6,14 +6,14 @@ import (
 )
 
 type resMessage struct {
-	Code    int         `json:"code,omitempty"`
+	Status    string         `json:"status,omitempty"`
 	Message string      `json:"message,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
 func MsgResponse(c *fiber.Ctx, msg string, data interface{}) error {
 	resPonse := &resMessage{
-		Code:    fiber.StatusOK,
+		Status:    "Success",
 		Message: msg,
 		Data:    data,
 	}
@@ -22,7 +22,7 @@ func MsgResponse(c *fiber.Ctx, msg string, data interface{}) error {
 
 func CrudResponse(c *fiber.Ctx, msg string, data interface{}) error {
 	resPonse := &resMessage{
-		Code:    fiber.StatusOK,
+		Status:    "Success",
 		Message: fmt.Sprintf(" %s data succesfully", msg),
 		Data:    data,
 	}
@@ -31,7 +31,7 @@ func CrudResponse(c *fiber.Ctx, msg string, data interface{}) error {
 
 func BadResponse(c *fiber.Ctx, msg string, data interface{}) error {
 	resPonse := &resMessage{
-		Code:    fiber.StatusBadRequest,
+		Status:    "Bad Request",
 		Message: msg,
 		Data:    data,
 	}
@@ -40,7 +40,7 @@ func BadResponse(c *fiber.Ctx, msg string, data interface{}) error {
 
 func ServerResponse(c *fiber.Ctx, msg string, data interface{}) error {
 	resPonse := &resMessage{
-		Code:    fiber.StatusInternalServerError,
+		Status:    "internal Server Error",
 		Message: msg,
 		Data:    data,
 	}
@@ -49,8 +49,8 @@ func ServerResponse(c *fiber.Ctx, msg string, data interface{}) error {
 
 func NotFoundResponse(c *fiber.Ctx, data interface{}) error {
 	resPonse := &resMessage{
-		Code:    fiber.StatusNotFound,
-		Message: "Not Found",
+		Status:    "Not found",
+		Message: "Document not found",
 		Data:    data,
 	}
 	return c.Status(fiber.StatusNotFound).JSON(resPonse)
