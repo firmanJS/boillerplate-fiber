@@ -3,9 +3,9 @@ package employe
 import (
 	"time"
 
-	. "github.com/firmanJS/boillerplate-fiber/config"
+	"github.com/firmanJS/boillerplate-fiber/config"
 	"github.com/firmanJS/boillerplate-fiber/helpers"
-	. "github.com/firmanJS/boillerplate-fiber/models"
+	"github.com/firmanJS/boillerplate-fiber/models"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -14,7 +14,7 @@ import (
 func UpdateSingle(ctx *fiber.Ctx) error {
 
 	id := ctx.Params("id")
-	employe := new(Employe)
+	employe := new(models.Employe)
 	employeId, parseError := primitive.ObjectIDFromHex(id)
 	if parseError != nil {
 		return helpers.BadResponse(ctx, "Bad Request", parseError.Error())
@@ -25,12 +25,12 @@ func UpdateSingle(ctx *fiber.Ctx) error {
 		helpers.ServerResponse(ctx, parsingError.Error(), parsingError.Error())
 	}
 
-	collection := Instance.Database.Collection("employe")
+	collection := config.Instance.Database.Collection("employe")
 
 	// check if the record is there
 	query := bson.D{{Key: "_id", Value: employeId}}
 	rawRecord := collection.FindOne(ctx.Context(), query)
-	record := &Employe{}
+	record := &models.Employe{}
 	rawRecord.Decode(record)
 
 	// update the record
