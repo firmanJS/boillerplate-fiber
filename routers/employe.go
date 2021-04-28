@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/firmanJS/boillerplate-fiber/api/employe"
+	employe "github.com/firmanJS/boillerplate-fiber/api/employe"
 	"github.com/gofiber/fiber/v2"
 )
 

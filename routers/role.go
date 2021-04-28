@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/firmanJS/boillerplate-fiber/api/role"
+	role "github.com/firmanJS/boillerplate-fiber/api/role"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -15,5 +15,5 @@ func RoleRoutes(api fiber.Router) {
 	route.Delete("/", role.DeleteAll)
 	route.Get("/:id", role.GetSingle)
 	route.Put("/:id", role.UpdateSingle)
-	
+
 }

@@ -2,17 +2,19 @@ package role
 
 import (
 	"time"
-	. "github.com/firmanJS/boillerplate-fiber/config"
+
+	"github.com/firmanJS/boillerplate-fiber/config"
 	"github.com/firmanJS/boillerplate-fiber/helpers"
+	"github.com/firmanJS/boillerplate-fiber/models"
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func UpdateSingle(ctx *fiber.Ctx) error {
 	// check data
 	id := ctx.Params("id")
-	role := new(Role)
+	role := new(models.Role)
 	roleId, parseError := primitive.ObjectIDFromHex(id)
 	if parseError != nil {
 		return helpers.BadResponse(ctx, "Bad Request", parseError.Error())
@@ -23,12 +25,12 @@ func UpdateSingle(ctx *fiber.Ctx) error {
 		helpers.ServerResponse(ctx, parsingError.Error(), parsingError.Error())
 	}
 
-	collection := Instance.Database.Collection("role")
+	collection := config.Instance.Database.Collection("role")
 
 	// check if the record is there
 	query := bson.D{{Key: "_id", Value: roleId}}
 	rawRecord := collection.FindOne(ctx.Context(), query)
-	record := &Role{}
+	record := &models.Role{}
 	rawRecord.Decode(record)
 
 	if rawRecord.Err() != nil {
@@ -51,4 +53,3 @@ func UpdateSingle(ctx *fiber.Ctx) error {
 
 	return helpers.CrudResponse(ctx, "Update", result)
 }
-
